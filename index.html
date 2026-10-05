@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>Business Weapon No. 1</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12243a;--line:#203650;--text:#edf5ff;--muted:#8fa6bf;--accent:#5fd0ff;--good:#49d69b;--warn:#ffc857;--bad:#ff6b7a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#06101d,#0b1728);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}button,input,select{font:inherit}
+header{padding:22px 20px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,17,31,.94);backdrop-filter:blur(12px);z-index:5}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand h1{font-size:21px;margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.status{font-size:11px;padding:7px 10px;border:1px solid #24506b;border-radius:99px;color:var(--accent)}
+nav{display:flex;gap:8px;overflow:auto;padding-top:15px}nav button{background:transparent;color:var(--muted);border:1px solid transparent;padding:9px 12px;border-radius:10px;white-space:nowrap}nav button.active{color:#fff;background:var(--panel2);border-color:var(--line)}
+main{max-width:1180px;margin:auto;padding:20px}.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}.card{background:linear-gradient(160deg,var(--panel),#0a1727);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 12px 30px #0003}.hero h2{font-size:30px;margin:0 0 8px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.metric b{font-size:26px;display:block;margin-top:8px}.metric span{font-size:12px;color:var(--muted)}
+.section{margin-top:18px}.section h3{margin:0 0 12px;font-size:17px}.property{display:grid;grid-template-columns:1.3fr .7fr;gap:15px}.score{font-size:40px;font-weight:800}.pill{display:inline-block;padding:6px 10px;border-radius:99px;font-size:11px;font-weight:700}.good{background:#49d69b22;color:var(--good)}.warn{background:#ffc85722;color:var(--warn)}.bad{background:#ff6b7a22;color:var(--bad)}
+.row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #ffffff0d;font-size:13px}.row:last-child{border:0}.btn{border:0;border-radius:10px;padding:10px 13px;background:var(--accent);color:#06111d;font-weight:800;cursor:pointer}.btn.secondary{background:var(--panel2);color:#fff;border:1px solid var(--line)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px;border-bottom:1px solid #ffffff0d}th{color:var(--muted);font-size:11px}
+input,select{width:100%;background:#081525;border:1px solid var(--line);color:#fff;border-radius:10px;padding:11px}.form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+@media(max-width:760px){main{padding:13px}.hero,.property{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.form{grid-template-columns:1fr}.hero h2{font-size:24px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div><h1>BUSINESS WEAPON NO. 1</h1><p>Property Intelligence • Deal War Room • Market Action</p></div><div class="status">V1.0 • MALINDI</div></div>
+ <nav>
+  <button class="active" onclick="show('war',this)">War Room</button>
+  <button onclick="show('properties',this)">Properties</button>
+  <button onclick="show('analysis',this)">Intelligence</button>
+  <button onclick="show('calculator',this)">Calculator</button>
+  <button onclick="show('actions',this)">Action Plan</button>
+ </nav>
+</header>
+<main id="app"></main>
+<script>
+const property={name:"Netai Homes",location:"Malindi, Kenya",type:"Residential / B&B opportunity",asking:6500000,estimated:8200000,rent:65000,occupancy:0.68,competition:"Moderate",source:"Sample intelligence record"};
+function verdict(p){let margin=(p.estimated-p.asking)/p.asking;let score=Math.round(55+margin*80+p.occupancy*20-(p.competition==="High"?15:0));score=Math.max(0,Math.min(99,score));return {score,decision:score>=75?"GO":score>=55?"MODIFY":"DON'T"}}
+function money(n){return "KES "+n.toLocaleString()}
+function war(){let v=verdict(property);return `<section class="hero"><div class="card"><p class="muted">LIVE DECISION BOARD</p><h2>Find the deal. Test the deal. Move first.</h2><p class="muted">Business Weapon No. 1 turns property information into a decision, action and follow-up system. This V1 starts with Malindi.</p><div class="actions"><button class="btn" onclick="show('properties')">Open Property Intelligence</button><button class="btn secondary" onclick="show('calculator')">Run Numbers</button></div></div><div class="card"><p class="muted">CURRENT VERDICT</p><div class="score">${v.score}/100</div><span class="pill ${v.decision==='GO'?'good':v.decision==='MODIFY'?'warn':'bad'}">${v.decision}</span><p class="muted">Based on asking price, estimated value, income potential and competition.</p></div></section>
+<div class="grid"><div class="card metric"><span>Properties tracked</span><b>1</b></div><div class="card metric"><span>GO candidates</span><b>1</b></div><div class="card metric"><span>Market area</span><b>Malindi</b></div><div class="card metric"><span>Engine status</span><b>Ready</b></div></div>
+<section class="section"><h3>War Room priorities</h3><div class="card"><div class="row"><span>1. Verify owner, title and property documents</span><span class="pill warn">VERIFY</span></div><div class="row"><span>2. Confirm actual achievable rent and occupancy</span><span class="pill warn">VERIFY</span></div><div class="row"><span>3. Compare nearby competing listings</span><span class="pill good">RESEARCH</span></div><div class="row"><span>4. Build negotiation price and broker margin</span><span class="pill good">ACTION</span></div></div></section>`}
+function properties(){return `<section class="section"><h3>Property Intelligence</h3><div class="card property"><div><h2>${property.name}</h2><p class="muted">${property.location} • ${property.type}</p><div class="row"><span>Asking price</span><b>${money(property.asking)}</b></div><div class="row"><span>Estimated market value</span><b>${money(property.estimated)}</b></div><div class="row"><span>Monthly rent assumption</span><b>${money(property.rent)}</b></div><div class="row"><span>Occupancy assumption</span><b>${Math.round(property.occupancy*100)}%</b></div><div class="row"><span>Competition</span><b>${property.competition}</b></div></div><div class="card"><p class="muted">DECISION</p><div class="score">${verdict(property).score}</div><span class="pill good">${verdict(property).decision}</span><p class="muted">Sample record — figures must be verified before a real transaction.</p><button class="btn" onclick="alert('Next action: verify documents, rent, ownership and comparable listings.')">Create Deal Checklist</button></div></div></section>`}
+function analysis(){return `<section class="section"><h3>Intelligence Engines</h3><div class="grid"><div class="card"><b>Demand</b><p class="muted">Buyer/renter demand signals and target segments.</p></div><div class="card"><b>Competition</b><p class="muted">Nearby supply, positioning and price pressure.</p></div><div class="card"><b>Economics</b><p class="muted">Revenue, margin, yield and downside checks.</p></div><div class="card"><b>Risk</b><p class="muted">Documents, ownership, market and execution risks.</p></div></div><div class="card"><h3>Decision logic</h3><p class="muted">GO = strong opportunity with acceptable risk. MODIFY = promising but needs a price, positioning or evidence change. DON'T = economics or risk do not justify action.</p></div></section>`}
+function calculator(){return `<section class="section"><h3>Deal Calculator</h3><div class="card"><div class="form"><label>Asking price<input id="ask" type="number" value="${property.asking}"></label><label>Monthly rent<input id="rent" type="number" value="${property.rent}"></label><label>Broker target margin %<input id="margin" type="number" value="5"></label></div><div class="actions"><button class="btn" onclick="calc()">Calculate</button></div><div id="calcout" class="section muted">Enter verified numbers to calculate.</div></div></section>`}
+function calc(){let a=+document.getElementById('ask').value,r=+document.getElementById('rent').value,m=+document.getElementById('margin').value;let annual=r*12;let gross=annual/a*100;document.getElementById('calcout').innerHTML=`<div class="grid"><div class="card metric"><span>Annual rent</span><b>${money(annual)}</b></div><div class="card metric"><span>Gross yield</span><b>${gross.toFixed(1)}%</b></div><div class="card metric"><span>Target margin</span><b>${money(a*m/100)}</b></div><div class="card metric"><span>Deal price after margin</span><b>${money(a-a*m/100)}</b></div></div>`}
+function actions(){return `<section class="section"><h3>Action Plan</h3><div class="card"><table><tr><th>Priority</th><th>Action</th><th>Status</th></tr><tr><td>1</td><td>Verify ownership and documents</td><td><span class="pill warn">OPEN</span></td></tr><tr><td>2</td><td>Capture photos, location and property facts</td><td><span class="pill warn">OPEN</span></td></tr><tr><td>3</td><td>Compare Malindi market alternatives</td><td><span class="pill warn">OPEN</span></td></tr><tr><td>4</td><td>Create listing and broker offer</td><td><span class="pill good">READY</span></td></tr><tr><td>5</td><td>Track leads and negotiation</td><td><span class="pill good">READY</span></td></tr></table></div></section>`}
+function show(page,btn){document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('app').innerHTML=page==='war'?war():page==='properties'?properties():page==='analysis'?analysis():page==='calculator'?calculator():actions()}
+show('war');
+</script>
+</body></html>
